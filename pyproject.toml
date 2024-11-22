@@ -3,15 +3,15 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "diffusers_private"
+name = "diffusion_uncertainty"
 version = "0.0.1"
-description = 'Deep learning template for quick experiments'
+description = 'Official implementation of "Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation"'
 readme = "README.md"
 requires-python = ">=3.7"
 license = "MIT"
-keywords = ["deep learning", "pytorch", "template"]
+keywords = ["deep learning", "pytorch", ]
 authors = [
-  { name = "mikedev", email = "mik3dev@gmail.com" },
+  { name = "Michele De Vita", email = "michele.de.vita@fau.de" },
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -73,6 +73,7 @@ dependencies = [
     "torch-uncertainty",
     "transformers>=4.25.1",
     "urllib3<=2.0.0",
+    "diffusers==0.31.0",
 ]
 
 post-install-commands = [
@@ -99,10 +100,8 @@ download-imagenet = "./scripts/download_imagenet.sh"
 summary-experiments = "python scripts/summary_experiments.py"
 summary =  "python scripts/summary_experiments.py"
 copy-hpc-runs = "scp -r iwnt104h@tinyx.nhr.fau.de:~/Diffusers-private/results/score-uncertainty/* results/score-uncertainty/"
-download-marigold = "cd models; wget -nv --show-progress https://share.phys.ethz.ch/~pf/bingkedata/marigold/checkpoint/marigold-v1-0.tar; tar -xvf marigold-v1-0.tar; rm marigold-v1-0.tar"
-run-all-guidance = "python scripts/meta-scripts/run_all_guidance.py"
-run-all-ause = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset imagenet64 --scheduler infer_noise_centered -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler infer_noise_centered -M 5 --batch-size 256 --device cuda --num-samples 5000;"
-run-all-ause-inverted = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000 --invert-uncertainty; python scripts/compute_ause.py --dataset imagenet64 --scheduler infer_noise_centered -M 5 --batch-size 256 --invert-uncertainty --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --invert-uncertainty --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler infer_noise_centered --invert-uncertainty -M 5 --batch-size 256 --device cuda --num-samples 5000;"
+run-all-ause = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset imagenet64 --scheduler uncertainty_centered -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler uncertainty_centered -M 5 --batch-size 256 --device cuda --num-samples 5000;"
+run-all-ause-inverted = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000 --invert-uncertainty; python scripts/compute_ause.py --dataset imagenet64 --scheduler uncertainty_centered -M 5 --batch-size 256 --invert-uncertainty --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --invert-uncertainty --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler uncertainty_centered --invert-uncertainty -M 5 --batch-size 256 --device cuda --num-samples 5000;"
 run-all-ause-mc-dropout = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000;"
 run-all-ause-inverted-mc-dropout = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000 --inverted; python scripts/compute_ause.py --dataset cifar10 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000 --inverted;"
 download-imagenet64-classifier = "cd models; wget https://openaipublic.blob.core.windows.net/diffusion/jul-2021/64x64_classifier.pt"
@@ -112,15 +111,6 @@ download-imagenet128-classifier = "cd models; wget https://openaipublic.blob.cor
 PIP_EXTRA_INDEX_URL = "https://download.pytorch.org/whl/cu118"
 PIP_VERBOSE = "1"
 PYTHONPATH = "."  # add project root to pythonpath
-TELEGRAM_BOT_TOKEN = "1591880140:AAHQK8c09diRJQSJoV-p8rhkcfeTUe3OgBA"
-TELEGRAM_CHAT_ID = "23534152"
-
-# Command to send a message using cURL
-# curl -X POST \
-#             -H 'Content-Type: application/json' \
-#             -d '{"chat_id": "{$TELEGRAM_CHAT_ID}", "text": "Hello, this is a message sent using cURL!"}' \
-#             https://api.telegram.org/bot{$TELEGRAM_BOT_TOKEN}/sendMessage
-
 
 
 [tool.hatch.envs.cpu]
