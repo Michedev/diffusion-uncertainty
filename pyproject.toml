@@ -1,0 +1,152 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "diffusers_private"
+version = "0.0.1"
+description = 'Deep learning template for quick experiments'
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+keywords = ["deep learning", "pytorch", "template"]
+authors = [
+  { name = "mikedev", email = "mik3dev@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = []
+
+[tool.hatch.envs.default]
+python = "3.11"
+dependencies = [
+    "Pillow",  # keep the PIL.Image.Resampling deprecation away
+    "accelerate>=0.11.0",
+    "beartype",
+    "compel==0.1.8",
+    "black~=23.1",
+    "datasets",
+    "filelock",
+    "flax>=0.4.1",
+    "gdown==4.6.0",
+    "hf-doc-builder>=0.3.0",
+    "huggingface-hub>=0.13.2",
+    "requests-mock==1.10.0",
+    "importlib_metadata",
+    "invisible-watermark>=0.2.0",
+    "isort>=5.5.4",
+    "jax>=0.4.1",
+    "jaxlib>=0.4.1",
+    "Jinja2",
+    "k-diffusion>=0.0.12",
+    "torchsde",
+    "matplotlib",
+    "note_seq",
+    "librosa",
+    "numpy",
+    "path",
+    "omegaconf",
+    "parameterized",
+    "protobuf>=3.20.3,<4",
+    "pytest",
+    "pytest-timeout",
+    "pytest-xdist",
+    "pytorch-fid",
+    "pytorch-lightning",
+    "ruff==0.0.280",
+    "safetensors>=0.3.1",
+    "seaborn",
+    "sentencepiece>=0.1.91,!=0.1.92",
+    "scipy",
+    "onnx",
+    "regex!=2019.12.17",
+    "requests",
+    "tensorboard",
+    "torch==2.3.1",
+    "torchmetrics[image]",
+    "torchvision",
+    "torch-uncertainty",
+    "transformers>=4.25.1",
+    "urllib3<=2.0.0",
+]
+
+post-install-commands = [
+  "hatch run python scripts/generate_diffusion_starting_data.py"
+]
+
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+compress-runs = "tar cfz saved_models.tar.gz saved_models/"
+run-tensorboard = "tensorboard --logdir=saved_models/"
+download-uvit-imagenet64-M = "cd models; echo 'Download U-Vit'; gdown https://drive.google.com/u/0/uc?id=1igVgRY7-A0ZV3XqdNcMGOnIGOxKr9azv&export=download; echo 'Download Autoencoder' gdown 10nbEiFd4YCHlzfTkJjZf45YcSMCN34m6"
+download-uvit-autoencoder = "cd models; gdown 10nbEiFd4YCHlzfTkJjZf45YcSMCN34m6"
+download-uvit-256 = "cd models; gdown 13StUdrjaaSXjfqqF7M47BzPyhMAArQ4u"
+download-uvit-512 = "cd models; gdown 1uegr2o7cuKXtf2akWGAN2Vnlrtw5YKQq"
+download-ilora-sd-depth = "cd models; gdown 1aD0hJrORn4CgnH2-yEh5g7L2Tkv4A5AD"
+uninstall-diffusers = "pip uninstall diffusers -y"
+download-adm-imagenet128 = "wget -P models https://openaipublic.blob.core.windows.net/diffusion/jul-2021/128x128_diffusion.pt"
+download-adm-imagenet64 = "wget -P models https://openaipublic.blob.core.windows.net/diffusion/jul-2021/64x64_diffusion.pt"
+run-finetuning-imagenet-lms-cluster = "qsub -cwd -V -v COMPUTER_ID=LMS-CLUSTER -l gpu=2 -l gpumem=34000 -o run_finetuning_imagenet.out -e run_finetuning_imagenet.err run_finetuning_imagenet.sh"
+clean-logs-lms-cluster = "rm *.out *.err"
+download-imagenet64 = "mkdir -p data; cd data; mkdir -p imagenet64; cd imagenet64; wget https://image-net.org/data/downsample/Imagenet64_train_part1_npz.zip; unzip Imagenet64_train_part1_npz.zip; rm Imagenet64_train_part1_npz.zip; wget https://image-net.org/data/downsample/Imagenet64_train_part2_npz.zip; unzip Imagenet64_train_part2_npz.zip; rm Imagenet64_train_part2_npz.zip; wget https://image-net.org/data/downsample/Imagenet64_val_npz.zip; unzip Imagenet64_val_npz.zip; rm Imagenet64_val_npz.zip;"
+download-imagenet = "./scripts/download_imagenet.sh"
+summary-experiments = "python scripts/summary_experiments.py"
+summary =  "python scripts/summary_experiments.py"
+copy-hpc-runs = "scp -r iwnt104h@tinyx.nhr.fau.de:~/Diffusers-private/results/score-uncertainty/* results/score-uncertainty/"
+download-marigold = "cd models; wget -nv --show-progress https://share.phys.ethz.ch/~pf/bingkedata/marigold/checkpoint/marigold-v1-0.tar; tar -xvf marigold-v1-0.tar; rm marigold-v1-0.tar"
+run-all-guidance = "python scripts/meta-scripts/run_all_guidance.py"
+run-all-ause = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset imagenet64 --scheduler infer_noise_centered -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler infer_noise_centered -M 5 --batch-size 256 --device cuda --num-samples 5000;"
+run-all-ause-inverted = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000 --invert-uncertainty; python scripts/compute_ause.py --dataset imagenet64 --scheduler infer_noise_centered -M 5 --batch-size 256 --invert-uncertainty --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --invert-uncertainty --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler infer_noise_centered --invert-uncertainty -M 5 --batch-size 256 --device cuda --num-samples 5000;"
+run-all-ause-mc-dropout = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000; python scripts/compute_ause.py --dataset cifar10 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000;"
+run-all-ause-inverted-mc-dropout = "python scripts/compute_ause.py --dataset imagenet64 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000 --inverted; python scripts/compute_ause.py --dataset cifar10 --scheduler mc_dropout -M 5 --batch-size 256 --device cuda --num-samples 5000 --inverted;"
+download-imagenet64-classifier = "cd models; wget https://openaipublic.blob.core.windows.net/diffusion/jul-2021/64x64_classifier.pt"
+download-imagenet128-classifier = "cd models; wget https://openaipublic.blob.core.windows.net/diffusion/jul-2021/128x128_classifier.pt"
+
+[tool.hatch.envs.default.env-vars]
+PIP_EXTRA_INDEX_URL = "https://download.pytorch.org/whl/cu118"
+PIP_VERBOSE = "1"
+PYTHONPATH = "."  # add project root to pythonpath
+TELEGRAM_BOT_TOKEN = "1591880140:AAHQK8c09diRJQSJoV-p8rhkcfeTUe3OgBA"
+TELEGRAM_CHAT_ID = "23534152"
+
+# Command to send a message using cURL
+# curl -X POST \
+#             -H 'Content-Type: application/json' \
+#             -d '{"chat_id": "{$TELEGRAM_CHAT_ID}", "text": "Hello, this is a message sent using cURL!"}' \
+#             https://api.telegram.org/bot{$TELEGRAM_BOT_TOKEN}/sendMessage
+
+
+
+[tool.hatch.envs.cpu]
+python = "3.11"
+dependencies = [
+  "torch==2.3.1",
+  "torchvision",
+  "pytorch-lightning",
+  "torchmetrics[image]",
+  "torchsummary",
+  "path",
+  "numpy",
+  "hydra-core",
+  "pyyaml",
+  "tensorboard",
+  "seaborn",
+  "matplotlib",
+  "einops",
+  "pytest",
+  "torch-uncertainty"
+]
+
+[tool.hatch.envs.cpu.env-vars]
+PIP_EXTRA_INDEX_URL = "https://download.pytorch.org/whl/cpu"
+PIP_VERBOSE = "1"
+
+
+[tool.hatch.envs.cpu.scripts]
+train = "python train.py accelerator=cpu devices=1"
