@@ -23,12 +23,12 @@ from diffusion_uncertainty.uncertainty_guidance import get_uncertainty_guided_sc
 
 from diffusers.pipelines.stable_diffusion_3.pipeline_output import StableDiffusion3PipelineOutput
 from diffusers.pipelines.stable_diffusion_3.pipeline_stable_diffusion_3 import EXAMPLE_DOC_STRING, StableDiffusion3Pipeline, retrieve_timesteps
-from diffusers_private.schedulers.scheduling_flow_match_euler_discrete import FlowMatchEulerDiscreteScheduler
+from diffusers.schedulers.scheduling_flow_match_euler_discrete import FlowMatchEulerDiscreteScheduler
 from diffusers.utils.doc_utils import replace_example_docstring
 from diffusers.utils.import_utils import is_torch_xla_available
 
 
-from ...utils.torch_utils import randn_tensor
+from diffusers.utils.torch_utils import randn_tensor
 from diffusers.pipelines.pipeline_utils import DiffusionPipeline
 from diffusers.pipelines.stable_diffusion import StableDiffusionPipelineOutput
 from diffusers.pipelines.stable_diffusion.safety_checker import StableDiffusionSafetyChecker

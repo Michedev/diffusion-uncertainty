@@ -25,7 +25,6 @@ This directory contains the following Python scripts:
 - **generate_dataset_score_uncertainty_imagenet_classifier_guidance.py**: Generates datasets with classifier guidance and computes uncertainty scores on ImageNet.
 - **generate_dataset_score_uncertainty_imagenet.py**: Generates datasets and computes uncertainty scores on ImageNet.
 - **generate_diffusion_starting_data.py**: Generates initial data for diffusion models.
-- **generate_images_with_uncertainty_percentile.py**: Generates images based on uncertainty percentiles.
 - **generate_images_with_uncertainty_threshold.py**: Generates images using specified uncertainty thresholds.
 - **generate_with_uncertainty_threshold_flux.py**: Generates images with uncertainty thresholds using flux methods.
 - **generate_with_uncertainty_threshold_stable_diffusion_3.py**: Uses stable diffusion models to generate images with uncertainty guidance.
