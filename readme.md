@@ -1,6 +1,65 @@
+![](docs/img/random_uncertainty_4_infer_noise.png)
+![](docs/img/diffusion_comparison.png)
 ![](cover_image.png)
 
 # Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation
+
+This repository contains the official implementation of our paper "Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation". Our work introduces a novel approach to estimate pixel-wise uncertainty in diffusion models, enabling more reliable and controlled image generation.
+
+The method provides:
+- Pixel-wise uncertainty maps for generated images
+- Improved sampling guidance based on uncertainty estimates
+- Evaluation metrics for uncertainty quality assessment
+- Implementation for various datasets including ImageNet and CIFAR-10
+
+For implementation details and usage instructions, please refer to the individual scripts described below.
+
+## Installing environment
+
+To install the environment, use `hatch`:
+
+```bash
+# Install hatch if not already installed
+pip install hatch
+
+# Create and activate default environment
+hatch shell
+
+# Alternatively, for CPU-only installation
+hatch -e cpu shell
+```
+
+## Download models:
+
+```bash
+# Download U-ViT models
+hatch run download-uvit-imagenet64-M
+hatch run download-uvit-256
+hatch run download-uvit-512
+
+# Download ADM models
+hatch run download-adm-imagenet128
+hatch run download-adm-imagenet64
+
+# Download other models
+hatch run download-uvit-autoencoder
+hatch run download-ilora-sd-depth
+hatch run download-imagenet64-classifier
+hatch run download-imagenet128-classifier
+```
+
+## Dataset download for FID calculation
+
+### ImageNet Dataset Download
+
+To download the ImageNet dataset for FID calculation, use the provided script:
+
+```bash
+# Run the download script
+bash scripts/download_imagenet.sh
+```
+
+**Note**: You need to obtain valid ImageNet download links and add them to the script at _scripts/download_imagenet.sh_ before running. The links are available from the official ImageNet website after registration.
 
 
 ## Scripts
