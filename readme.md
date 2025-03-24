@@ -73,6 +73,12 @@ bash scripts/download_imagenet.sh
     }
 
 
+## License
+
+This project is licensed under a Creative Commons Attribution 4.0 International License.
+
+See [LICENSE](license.md) for details.
+
 ## Scripts
 
 This directory contains the following Python scripts:
