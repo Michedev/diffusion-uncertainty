@@ -1,6 +1,11 @@
 ![](img/random_uncertainty_4_uncertainty.png)
 ![](img/diffusion_comparison.png)
 
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![PyTorch 2.3.1](https://img.shields.io/badge/PyTorch-2.3.1-EE4C2C.svg)](https://pytorch.org/)
+[![arXiv](https://img.shields.io/badge/arXiv-2412.00205v1-b31b1b.svg)](https://arxiv.org/abs/2412.00205v1)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
 # Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation
 
 This repository contains the official implementation of our paper "Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation". Our work introduces a novel approach to estimate pixel-wise uncertainty in diffusion models, enabling more reliable and controlled image generation.
