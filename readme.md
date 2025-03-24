@@ -61,6 +61,18 @@ bash scripts/download_imagenet.sh
 **Note**: You need to obtain valid ImageNet download links and add them to the script at _scripts/download_imagenet.sh_ before running. The links are available from the official ImageNet website after registration.
 
 
+## Citation
+
+    @InProceedings{De_Vita_2025_WACV,
+        author    = {De Vita, Michele and Belagiannis, Vasileios},
+        title     = {Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation},
+        booktitle = {Proceedings of the Winter Conference on Applications of Computer Vision (WACV)},
+        month     = {February},
+        year      = {2025},
+        pages     = {3844-3854}
+    }
+
+
 ## Scripts
 
 This directory contains the following Python scripts:
