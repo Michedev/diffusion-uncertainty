@@ -56,14 +56,49 @@
       color: #666;
     }
 
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
+  /* Updated nav styling */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
 
+  /* Paper button styling */
+  .paper-btn {
+    background-color: #b31b1b;
+    /* background-color: white;  */
+
+    color: white;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* GitHub button styling */
+  .github-btn {
+    background-color: #333;
+    color: white;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Hover effects */
+  .paper-btn:hover {
+    background-color: #831414;
+    transform: translateY(-2px);
+  }
+
+.github-btn:hover {
+  background-color: #222;
+  transform: translateY(-2px);
+}
     nav a {
       padding: 0.3rem 0.6rem;
       border: 1px solid #ccc;
@@ -94,7 +129,7 @@
     .gallery {
       display: grid;
       gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      /* grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); */
       margin-top: 1rem;
     }
 
@@ -102,6 +137,9 @@
       border: 1px solid #eee;
       padding: 1rem;
       background: #f9f9f9;
+      border-radius: 20px;
+      margin: 3px;
+
     }
 
     .gallery img {
@@ -145,12 +183,21 @@
     <h1>Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation</h1>
     <h2>By: Michele De Vita, Vasileios Belagiannis</h2>
     <nav>
-      <a href="#">Paper (PDF Placeholder)</a>
-      <a href="#">Code (Link Placeholder)</a>
+      <a href="#" class="paper-btn" style="display: inline-flex; align-items: center;"><img src="img/arxiv-logomark-small-black.svg" height="20px" style="padding-right: 4px;"> Paper</a>
+      <a href="#" class="github-btn" style="display: inline-flex; align-items: center;">
+        <img src="img/icons8-github.svg" width="30px">
+        <span style="margin-left: 5px;">Code</span>
+      </a>
     </nav>
   </header>
 
   <section id="overview">
+    <div class="gallery">
+      <div style="width: 100%;">
+        <img class="placeholder" alt="Diffusion Comparison" src="img/diffusion_comparison.png"/>
+        <small> Visual Results I. We provide qualitative samples of uncertainty guidance applied to Stable Diffusion 3  (first two columns) and 1.5 (last two columns). In the upper row we present images produced without the uncertainty guidance while the bottom row features images generated with the uncertainty guidance. We can observe that the images with uncertainty guidance present fewer artefacts and more faithful generation</small>
+      </div>
+    </div>
     <h3>Overview</h3>
     <p>
       We explore a novel approach to guide the sampling phase of diffusion models by estimating pixel-wise 
@@ -167,17 +214,13 @@
   </section>
 
   <section id="gallery">
-    <h3>Sample Placeholders</h3>
+    <!-- <h3>Sample Placeholders</h3>
     <p>
       Below is a placeholder gallery showcasing generated images, where we compare “normal” diffusion sampling 
       vs. “uncertainty-guided” sampling. Each row demonstrates the model’s output under different conditions.
       (Note: All images are placeholders here.)
-    </p>
-    <div class="gallery">
-      <div>
-        <img class="placeholder" alt="Placeholder Image 1" />
-        <small>Uncertainty-based generation sample placeholder</small>
-      </div>
+    </p> -->
+    <!-- <div class="gallery">
       <div>
         <img class="placeholder" alt="Placeholder Image 2" />
         <small>Non-guided generation sample placeholder</small>
@@ -186,12 +229,16 @@
         <img class="placeholder" alt="Placeholder Image 3" />
         <small>Uncertainty-based generation sample placeholder</small>
       </div>
-    </div>
+    </div> -->
   </section>
 
   <section id="method">
     <h3>Method Highlights</h3>
-    <p>
+    <div style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+      <img class="" alt="Diffusion Comparison" width="100%" style="margin-top: 10px; margin-bottom: 10px;" src="img/plot_uncertainty_v2.drawio.png"/>
+      <small></small>
+    </div> 
+  <p>
       Our approach begins with a straightforward observation: the diffusion model’s denoising scores can 
       be seen as approximations to the probability gradient of intermediate noisy images. By examining 
       how these scores vary under small perturbations, we quantify the aleatoric uncertainty for each pixel.
@@ -211,6 +258,19 @@
 
   <section id="results">
     <h3>Results &amp; Findings</h3>
+    <div class="gallery">
+      <div>
+        <img class="" alt="Placeholder Image 2" src="img/random_uncertainty_1_infer_noise.png"/>
+        <img class="" alt="Placeholder Image 2" src="img/random_uncertainty_2_infer_noise.png"/>
+        <img class="" alt="Placeholder Image 2" src="img/random_uncertainty_4_infer_noise.png"/>
+        <small> Uncertainty maps obtained from our proposed method during the sampling process</small>
+      </div>
+      <!-- <div>
+        <img class="placeholder" alt="Placeholder Image 3" />
+        <small>Uncertainty-based generation sample placeholder</small>
+      </div> -->
+    </div>
+
     <p>
       We evaluated on ImageNet and CIFAR-10, demonstrating that our uncertainty estimates can filter out 
       low-quality outputs with minimal overhead. Additionally, our “uncertainty-guided” sampling consistently 
@@ -221,6 +281,10 @@
         <strong>Filtering Low-Quality Samples:</strong> Using the pixel-wise uncertainty, we discarded 
         samples above a threshold, improving overall sample quality in terms of FID scores.
       </li>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <img width="75%" src="img/table_1.png">
+      </div>
+  
       <li>
         <strong>Uncertainty-Guided Sampling:</strong> By adaptively updating the denoising scores for 
         high-uncertainty pixels, we achieved better perceptual quality, corroborated by improved FID 
@@ -231,6 +295,9 @@
       Detailed quantitative results, including AUSE and AURG metrics, provide evidence that our approach 
       outperforms related uncertainty-based diffusion model methods in both accuracy and efficiency.
     </p>
+    <div style="display: flex; justify-content: center; align-items: center;">
+      <img width="50%" src="img/table_2.png">
+    </div>
   </section>
 
   <section id="citation">
