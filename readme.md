@@ -1,6 +1,5 @@
 ![](docs/img/random_uncertainty_4_infer_noise.png)
 ![](docs/img/diffusion_comparison.png)
-![](cover_image.png)
 
 # Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation
 
