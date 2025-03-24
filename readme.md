@@ -1,5 +1,5 @@
-![](docs/img/random_uncertainty_4_infer_noise.png)
-![](docs/img/diffusion_comparison.png)
+![](img/random_uncertainty_4_uncertainty.png)
+![](img/diffusion_comparison.png)
 
 # Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation
 
@@ -59,6 +59,47 @@ bash scripts/download_imagenet.sh
 ```
 
 **Note**: You need to obtain valid ImageNet download links and add them to the script at _scripts/download_imagenet.sh_ before running. The links are available from the official ImageNet website after registration.
+
+#### Resizing dataset
+
+To get different versions of Imagenet, namely Imagenet64, Imagenet128, Imagenet256 and Imagenet512 please use the script in [this script](https://github.com/tsc2017/ImageNet128_Scripts/blob/master/image_resizer_imagenet.py)
+
+as follow:
+
+```sh
+# Resize to 64x64
+python image_resizer_imagenet.py -i PATH/TO/IMAGENET -o OUTPUT/FOLDER -r -s 64
+
+# Resize to 128x128
+python image_resizer_imagenet.py -i PATH/TO/IMAGENET -o OUTPUT/FOLDER -r -s 128
+
+# Resize to 256x256
+python image_resizer_imagenet.py -i PATH/TO/IMAGENET -o OUTPUT/FOLDER -r -s 256
+
+# Resize to 512x512 
+python image_resizer_imagenet.py -i PATH/TO/IMAGENET -o OUTPUT/FOLDER -r -s 512
+```
+
+
+### CIFAR-10 Download
+
+You can download CIFAR-10 from the following [link](htthttps://www.kaggle.com/datasets/ayush1220/cifar10) and put under data/cifar10
+# Experiments
+
+## Generate uncertainty maps
+
+Once download the models you can generate the uncertainty maps for imagenet with the following command:
+
+```python
+python scripts/generate_dataset_score_uncertainty_imagenet.py --num-samples 10_000 --batch-size 128 -M 5 --dropout 0.5 --multi-gpu --scheduler uncertainty_zigzag_centered --image-size 128 --generation-steps 50 --start-step-uc 40 --num-steps-uc 10  --index-seed 3
+``` 
+
+
+## FID Calculation 
+To compute FID first you need to compute true dataset distribution:
+```python
+python compute_dataset_fid.py
+```
 
 
 ## Citation

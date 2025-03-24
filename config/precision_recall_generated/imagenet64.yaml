@@ -1,0 +1,10 @@
+dataset_folders:
+- 2024-02-20_17-09-21
+mode: max
+batch_size: 128
+perc: 0.15
+start_index: 300
+end_index: 500
+k: 5
+on_cpu: false
+no_uncertainty_half: false

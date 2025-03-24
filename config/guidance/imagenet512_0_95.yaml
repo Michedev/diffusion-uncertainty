@@ -1,0 +1,15 @@
+# runs with generation steps 50 on imagenet64 
+percentile: 0.95
+start_step_threshold: 0
+num_steps_threshold: 20
+dataset_name: imagenet512
+num_samples: 10_000
+batch_size: 128
+on_cpu: false
+seed: 853983298
+scheduler_type: dpm_2_uncertainty_centered
+start_step_guidance: 0
+num_steps_guidance: 3
+use_percentile: true
+num_steps: 20
+guidance_type: posterior

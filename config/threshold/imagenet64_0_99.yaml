@@ -1,0 +1,6 @@
+dataset_folders:
+- 2024-05-03_11-14-10
+perc: 0.99
+batch_size: 128
+on_cpu: false
+dataset_name: imagenet64

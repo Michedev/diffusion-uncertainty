@@ -1,0 +1,16 @@
+# Task: Configuration for generating 1000 samples using the imagenet256 dataset
+num_samples: 1000
+batch_size: 64
+M: 20
+dropout: 0.0
+multi_gpu: true
+image_size: 256
+scheduler_type: uncertainty_centered
+start_step_uc: 0
+num_steps_uc: 50
+generation_steps: 50
+start_index: 20_000
+model_type: uvit
+seed: 4918983
+predict_next: false
+eta: 0.0

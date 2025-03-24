@@ -1,0 +1,6 @@
+num_steps: 20
+seed: 48328329
+start_step_threshold: 0
+num_steps_threshold: 2
+percentile: 0.95
+prompt: a painting of a sunset over a mountain

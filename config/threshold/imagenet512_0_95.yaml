@@ -1,0 +1,5 @@
+dataset_folders:
+- 2024-04-30_16-11-09
+perc: 0.95
+batch_size: 32
+on_cpu: false

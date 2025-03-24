@@ -1,0 +1,15 @@
+# Task: Configuration for generating 3000 samples using the cifar10 dataset
+num_samples: 3000
+batch_size: 64
+M: 20
+dropout: 0.0
+multi_gpu: true
+scheduler_type: uncertainty_centered
+start_step_uc: 0
+num_steps_uc: 20
+generation_steps: 20
+start_index: 10_000
+model_type: unet
+seed: 4918983
+predict_next: false
+eta: 0.0
