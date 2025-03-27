@@ -106,6 +106,12 @@ To compute FID first you need to compute true dataset distribution:
 python compute_dataset_fid.py
 ```
 
+Then you can compute FID score with the following command:
+
+```python
+  python compute_fid_imagenet.py --config imagenet256_1000_samples
+```
+
 ## Uncertainty guidance
 
 Once download the models you can use the uncertainty to guide the generative process with the following command:
