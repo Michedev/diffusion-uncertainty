@@ -106,7 +106,43 @@ To compute FID first you need to compute true dataset distribution:
 python compute_dataset_fid.py
 ```
 
+## Uncertainty guidance
 
+Once download the models you can use the uncertainty to guide the generative process with the following command:
+
+```python
+
+python scripts/generate_with_uncertainty_threshold_stable_diffusion.py --prompt "a beautiful mountain landscape" --num-steps 20 --seed 123 --percentile 0.9 --strength 1.0 --num-steps-threshold 2
+
+```
+
+```
+usage: generate_with_uncertainty_threshold_stable_diffusion.py [-h] [--num-steps NUM_STEPS] [--prompt PROMPT]
+                 [--prompt-negative PROMPT_NEGATIVE] [--seed SEED]
+                 [--start-step-threshold START_STEP_THRESHOLD]
+                 [--num-steps-threshold NUM_STEPS_THRESHOLD]
+                 [--percentile PERCENTILE] [--skip-original] [--use-posterior]
+                 [--strength STRENGTH] [--config CONFIG]
+
+options:
+  -h, --help            show this help message and exit
+  --num-steps NUM_STEPS
+                        number of steps to generate (default: 20)
+  --prompt PROMPT       prompt for the model (default: a photo of a cat)
+  --prompt-negative PROMPT_NEGATIVE
+                        negative prompt for the model
+  --seed SEED           seed for the model (default: 491)
+  --start-step-threshold START_STEP_THRESHOLD
+                        step to start estimating the threshold (default: 0)
+  --num-steps-threshold NUM_STEPS_THRESHOLD
+                        number of steps to estimate the threshold (default: 20)
+  --percentile PERCENTILE, --perc PERCENTILE, -p PERCENTILE
+                        percentile for the threshold (default: 0.95)
+  --skip-original       skip original
+  --use-posterior       use posterior
+  --strength STRENGTH   strength of the uncertainty guidance (default: 0.99)
+  --config CONFIG       Path to the configuration file
+```
 ## Citation
 
     @InProceedings{De_Vita_2025_WACV,
