@@ -81,7 +81,7 @@ def main():
 
     argparser.add_argument('--skip-ddim-fid', action='store_true', dest='skip_ddim_fid')
 
-    uncertainty_params = argparser.add_argument_group('Infer noise params')
+    uncertainty_params = argparser.add_argument_group('Uncertainty params')
     uncertainty_params.add_argument('--uncertainty-threshold', '--ucth', type=float, default=1.0)
     uncertainty_params.add_argument('--uncertainty-threshold-mode', '--ucthm', type=str, default='max', choices=['max', 'min'])
     uncertainty_params.add_argument('--no-uncertainty-normalize', action='store_false', dest='uncertainty_normalize')

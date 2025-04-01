@@ -6,6 +6,23 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2412.00205v1-b31b1b.svg)](https://arxiv.org/abs/2412.00205v1)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
+
+## Table of Contents
+- [Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation](#diffusion-model-guided-sampling-with-pixel-wise-aleatoric-uncertainty-estimation)
+  - [Installing environment](#installing-environment)
+  - [Download models:](#download-models)
+  - [Dataset download for FID calculation](#dataset-download-for-fid-calculation)
+    - [ImageNet Dataset Download](#imagenet-dataset-download)
+      - [Resizing dataset](#resizing-dataset)
+    - [CIFAR-10 Download](#cifar-10-download)
+- [Experiments](#experiments)
+  - [Generate uncertainty maps](#generate-uncertainty-maps)
+  - [FID Calculation](#fid-calculation)
+  - [Uncertainty guidance](#uncertainty-guidance)
+  - [Citation](#citation)
+  - [License](#license)
+  - [Scripts](#scripts)
+
 # Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation
 
 This repository contains the official implementation of our paper "Diffusion Model Guided Sampling with Pixel-Wise Aleatoric Uncertainty Estimation". Our work introduces a novel approach to estimate pixel-wise uncertainty in diffusion models, enabling more reliable and controlled image generation.
@@ -106,7 +123,49 @@ To compute FID first you need to compute true dataset distribution:
 python compute_dataset_fid.py
 ```
 
+Then you can compute FID score with the following command:
 
+```python
+  python compute_fid_imagenet.py --config imagenet256_1000_samples
+```
+
+## Uncertainty guidance
+
+Once download the models you can use the uncertainty to guide the generative process with the following command:
+
+```python
+
+python scripts/generate_with_uncertainty_threshold_stable_diffusion.py --prompt "a beautiful mountain landscape" --num-steps 20 --seed 123 --percentile 0.9 --strength 1.0 --num-steps-threshold 2
+
+```
+
+```
+usage: generate_with_uncertainty_threshold_stable_diffusion.py [-h] [--num-steps NUM_STEPS] [--prompt PROMPT]
+                 [--prompt-negative PROMPT_NEGATIVE] [--seed SEED]
+                 [--start-step-threshold START_STEP_THRESHOLD]
+                 [--num-steps-threshold NUM_STEPS_THRESHOLD]
+                 [--percentile PERCENTILE] [--skip-original] [--use-posterior]
+                 [--strength STRENGTH] [--config CONFIG]
+
+options:
+  -h, --help            show this help message and exit
+  --num-steps NUM_STEPS
+                        number of steps to generate (default: 20)
+  --prompt PROMPT       prompt for the model (default: a photo of a cat)
+  --prompt-negative PROMPT_NEGATIVE
+                        negative prompt for the model
+  --seed SEED           seed for the model (default: 491)
+  --start-step-threshold START_STEP_THRESHOLD
+                        step to start estimating the threshold (default: 0)
+  --num-steps-threshold NUM_STEPS_THRESHOLD
+                        number of steps to estimate the threshold (default: 20)
+  --percentile PERCENTILE, --perc PERCENTILE, -p PERCENTILE
+                        percentile for the threshold (default: 0.95)
+  --skip-original       skip original
+  --use-posterior       use posterior
+  --strength STRENGTH   strength of the uncertainty guidance (default: 0.99)
+  --config CONFIG       Path to the configuration file
+```
 ## Citation
 
     @InProceedings{De_Vita_2025_WACV,
